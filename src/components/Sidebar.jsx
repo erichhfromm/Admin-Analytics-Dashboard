@@ -3,9 +3,39 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Users, LogOut, X, PieChart, Settings, Mail } from 'lucide-react';
 import clsx from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getSettings } from '../services/api';
 
 const Sidebar = ({ isMobileOpen, onClose }) => {
   const navigate = useNavigate();
+  const [brandData, setBrandData] = React.useState({ initial: 'A', url: '' });
+
+  React.useEffect(() => {
+    // Initial fetch
+    getSettings().then(data => {
+      if (data) setBrandData({ 
+        initial: data.name.charAt(0).toUpperCase() || 'A', 
+        url: data.avatarUrl || '' 
+      });
+    });
+    
+    // Auto-update function
+    const fetchBrand = () => {
+        getSettings().then(d => { 
+            if(d) setBrandData({ 
+              initial: d.name.charAt(0).toUpperCase() || 'A', 
+              url: d.avatarUrl || '' 
+            }); 
+        });
+    }
+
+    window.addEventListener('focus', fetchBrand);
+    window.addEventListener('profileUpdate', fetchBrand);
+    
+    return () => {
+        window.removeEventListener('focus', fetchBrand);
+        window.removeEventListener('profileUpdate', fetchBrand);
+    }
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('auth_token');
@@ -15,9 +45,9 @@ const Sidebar = ({ isMobileOpen, onClose }) => {
   const navItems = [
     { label: 'Dashboard', icon: LayoutDashboard, path: '/' },
     { label: 'Users', icon: Users, path: '/users' },
-    { label: 'Analytics', icon: PieChart, path: '/analytics', disabled: true },
-    { label: 'Messages', icon: Mail, path: '/messages', disabled: true },
-    { label: 'Settings', icon: Settings, path: '/settings', disabled: true },
+    { label: 'Analytics', icon: PieChart, path: '/analytics' },
+    { label: 'Messages', icon: Mail, path: '/messages' },
+    { label: 'Settings', icon: Settings, path: '/settings' },
   ];
 
   const sidebarContent = (
@@ -25,8 +55,12 @@ const Sidebar = ({ isMobileOpen, onClose }) => {
       {/* Brand */}
       <div className="flex items-center justify-between p-6 pb-2">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[var(--primary)] flex items-center justify-center text-white font-bold text-lg shadow-sm shadow-indigo-500/50">
-            A
+          <div className="w-8 h-8 rounded-lg bg-[var(--primary)] flex items-center justify-center text-white font-bold text-lg shadow-sm shadow-red-500/50 overflow-hidden">
+            {brandData.url ? (
+              <img src={brandData.url} alt="Logo" className="w-full h-full object-cover" />
+            ) : (
+              brandData.initial
+            )}
           </div>
           <h1 className="text-xl font-bold tracking-tight text-[var(--text-main)]">
             Analytics
@@ -48,31 +82,21 @@ const Sidebar = ({ isMobileOpen, onClose }) => {
           Overview
         </p>
         {navItems.map((item) => (
-          item.disabled ? (
-            <div
-              key={item.label}
-              className="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-[var(--text-muted)] opacity-60 cursor-not-allowed"
-            >
-              <item.icon size={20} strokeWidth={2} />
-              {item.label}
-            </div>
-          ) : (
-            <NavLink
-              key={item.label}
-              to={item.path}
-              className={({ isActive }) =>
-                clsx(
-                  "group flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
-                  isActive
-                    ? "bg-[var(--primary)] text-white shadow-md shadow-indigo-500/20"
-                    : "text-[var(--text-muted)] hover:bg-[var(--bg-color)] hover:text-[var(--primary)]"
-                )
-              }
-            >
-              <item.icon size={20} strokeWidth={2} />
-              {item.label}
-            </NavLink>
-          )
+          <NavLink
+            key={item.label}
+            to={item.path}
+            className={({ isActive }) =>
+              clsx(
+                "group flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
+                isActive
+                  ? "bg-[var(--primary)] text-white shadow-md shadow-red-500/20 scale-105 origin-left"
+                  : "text-[var(--text-muted)] hover:bg-[var(--surface-color)] hover:text-[var(--primary)] hover:translate-x-1"
+              )
+            }
+          >
+            <item.icon size={20} strokeWidth={2} />
+            {item.label}
+          </NavLink>
         ))}
       </nav>
 
@@ -90,12 +114,10 @@ const Sidebar = ({ isMobileOpen, onClose }) => {
 
   return (
     <>
-      {/* Desktop Sidebar */}
       <aside className="hidden lg:block fixed inset-y-0 left-0 z-30 w-[var(--sidebar-w)]">
         {sidebarContent}
       </aside>
 
-      {/* Mobile Sidebar */}
       <AnimatePresence>
         {isMobileOpen && (
           <>
@@ -103,7 +125,6 @@ const Sidebar = ({ isMobileOpen, onClose }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
               className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
               onClick={onClose}
             />

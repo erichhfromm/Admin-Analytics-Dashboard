@@ -1,22 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #4F46E5;
-  --primary-hover: #4338CA;
-  --bg-color: #F8FAFC;
-  --surface-color: #FFFFFF;
-  --text-main: #0F172A;
-  --text-muted: #64748B;
-  --border-color: #E2E8F0;
+  --primary: #DC2626; /* Red 600 */
+  --primary-hover: #991B1B; /* Red 800 */
+  --bg-color: #FFFFFF; /* Latar belakang tetap putih */
+  --surface-color: #FAFAFA; /* Slightly off-white for cards to pop against white bg */
+  --text-main: #000000; /* Hitam pekat */
+  --text-muted: #4B5563; /* Gray 600 for readability */
+  --border-color: #E5E7EB;
   --sidebar-w: 260px;
 }
 
 .dark {
-  --bg-color: #0F172A;
-  --surface-color: #1E293B;
-  --text-main: #F8FAFC;
-  --text-muted: #94A3B8;
-  --border-color: #334155;
+  --bg-color: #000000; /* Kombinasi hitam untuk dark mode */
+  --surface-color: #111111;
+  --text-main: #FFFFFF;
+  --text-muted: #9CA3AF;
+  --border-color: #333333;
+  --primary: #EF4444; /* Red 500 for better visibility in dark mode */
+  --primary-hover: #DC2626;
 }
 
 body {
@@ -34,12 +36,12 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: #9CA3AF;
   border-radius: 4px;
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: #374151;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: #4B5563;
 }
