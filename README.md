@@ -1,6 +1,12 @@
 # 🚀 Apex Analytics - Premium Administrative Dashboard
 
-![Apex Analytics Preview](./dashboard_preview.png)
+<p align="center">
+  <img src="./dashboard_preview1.png" width="32%" />
+  <img src="./dashboard_preview1.png" width="32%" />
+  <img src="./dashboard_preview1.png" width="32%" />
+</p>
+
+*Comprehensive view of the Dashboard, User Management, and Analytics modules.*
 
 ## ✨ Overview
 **Apex Analytics** is a high-performance, production-ready administrative dashboard designed for modern SaaS and business intelligence applications. Built with a focus on **security, elegance, and extreme performance**, it transforms raw data into a sophisticated, interactive experience.
