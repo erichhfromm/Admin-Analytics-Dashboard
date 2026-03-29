@@ -88,7 +88,7 @@ const Navbar = ({ onMobileMenuToggle }) => {
           <Menu size={24} />
         </button>
         
-        <div className="hidden md:flex items-center bg-[var(--bg-color)] rounded-lg px-3 py-2 border border-[var(--border-color)] focus-within:border-[var(--primary)] focus-within:ring-1 focus-within:ring-[var(--primary)] transition-all">
+        <div className="hidden md:flex items-center bg-[var(--bg-color)] rounded-lg px-3 py-2 border border-[var(--border-color)] focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all">
           <Search size={18} className="text-[var(--text-muted)]" />
           <input
             type="text"
@@ -104,7 +104,7 @@ const Navbar = ({ onMobileMenuToggle }) => {
       <div className="flex items-center gap-3 md:gap-4 relative">
         <button
           onClick={toggleDark}
-          className="p-2 rounded-full hover:bg-[var(--bg-color)] transition-colors text-[var(--text-muted)] hover:text-[var(--primary)]"
+          className="p-2 rounded-full hover:bg-[var(--bg-color)] transition-colors text-[var(--text-muted)] hover:text-indigo-600 dark:hover:text-indigo-400"
         >
           {isDark ? <Sun size={20} /> : <Moon size={20} />}
         </button>
@@ -113,10 +113,10 @@ const Navbar = ({ onMobileMenuToggle }) => {
         <div className="relative" ref={notifRef}>
           <button 
             onClick={() => { setShowNotifications(!showNotifications); setShowProfile(false); }}
-            className="relative p-2 rounded-full hover:bg-[var(--bg-color)] transition-colors text-[var(--text-muted)] hover:text-[var(--primary)]"
+            className="relative p-2 rounded-full hover:bg-[var(--bg-color)] transition-colors text-[var(--text-muted)] hover:text-indigo-600 dark:hover:text-indigo-400"
           >
             <Bell size={20} />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500 border border-[var(--surface-color)]" />
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-indigo-500 border border-[var(--surface-color)]" />
           </button>
           
           <AnimatePresence>
@@ -130,21 +130,21 @@ const Navbar = ({ onMobileMenuToggle }) => {
               >
                 <div className="p-4 border-b border-[var(--border-color)] flex justify-between items-center">
                   <h3 className="font-bold text-[var(--text-main)] text-sm">Notifications</h3>
-                  <span className="text-xs text-[var(--primary)] cursor-pointer hover:underline">Mark all as read</span>
+                  <span className="text-xs text-indigo-600 dark:text-indigo-400 cursor-pointer hover:underline">Mark all as read</span>
                 </div>
                 <div className="max-h-80 overflow-y-auto">
                   {notifications.map(n => (
-                    <div key={n.id} className={clsx("p-4 border-b border-[var(--border-color)]/50 hover:bg-[var(--bg-color)] transition-colors cursor-pointer", n.unread && "bg-red-50/50 dark:bg-red-500/5")}>
+                    <div key={n.id} className={clsx("p-4 border-b border-[var(--border-color)]/50 hover:bg-[var(--bg-color)] transition-colors cursor-pointer", n.unread && "bg-indigo-50/50 dark:bg-indigo-500/5")}>
                       <div className="flex justify-between items-start mb-1">
                         <h4 className={clsx("text-sm", n.unread ? "font-bold text-[var(--text-main)]" : "font-medium text-[var(--text-main)]")}>{n.title}</h4>
-                        {n.unread && <div className="w-2 h-2 rounded-full bg-[var(--primary)] mt-1.5"></div>}
+                        {n.unread && <div className="w-2 h-2 rounded-full bg-indigo-500 mt-1.5"></div>}
                       </div>
                       <p className="text-xs text-[var(--text-muted)]">{n.time}</p>
                     </div>
                   ))}
                 </div>
                 <div className="p-3 text-center border-t border-[var(--border-color)] bg-[var(--bg-color)]">
-                  <button className="text-sm font-semibold text-[var(--primary)] hover:underline">View all notifications</button>
+                  <button className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">View all notifications</button>
                 </div>
               </motion.div>
             )}
@@ -161,7 +161,7 @@ const Navbar = ({ onMobileMenuToggle }) => {
               <p className="text-sm font-semibold text-[var(--text-main)]">{userData.name}</p>
               <p className="text-xs text-[var(--text-muted)]">{userData.email}</p>
             </div>
-            <div className="w-9 h-9 rounded-full bg-[var(--primary)] text-white flex items-center justify-center font-bold overflow-hidden border border-[var(--border-color)]">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-500 to-indigo-800 text-white flex items-center justify-center font-bold overflow-hidden border border-[var(--border-color)]">
               {userData.avatarUrl ? (
                 <img src={userData.avatarUrl} alt="User" className="w-full h-full object-cover" />
               ) : (

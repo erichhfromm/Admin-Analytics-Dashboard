@@ -16,9 +16,9 @@ const Analytics = () => {
   }, []);
 
   const deviceData = [
-    { name: 'Mobile', value: 400, color: '#dc2626', icon: Smartphone },
-    { name: 'Desktop', value: 300, color: '#171717', icon: Monitor },
-    { name: 'Tablet', value: 300, color: '#f87171', icon: Activity },
+    { name: 'Mobile', value: 400, color: '#6366f1', icon: Smartphone },
+    { name: 'Desktop', value: 300, color: '#0f172a', icon: Monitor },
+    { name: 'Tablet', value: 300, color: '#94a3b8', icon: Activity },
   ];
 
   if (loading) {
@@ -47,9 +47,9 @@ const Analytics = () => {
                 <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-muted)', fontSize: 12 }} />
                 <RechartsTooltip 
                   contentStyle={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--border-color)', borderRadius: '8px' }}
-                  itemStyle={{ color: '#dc2626', fontWeight: 600 }}
+                  itemStyle={{ color: '#6366f1', fontWeight: 600 }}
                 />
-                <Line type="monotone" dataKey="revenue" stroke="#dc2626" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="revenue" stroke="#6366f1" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 8 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -108,7 +108,7 @@ const Analytics = () => {
                   <span className={`font-semibold ${stat.bad ? 'text-rose-500' : 'text-emerald-500'}`}>{stat.trend}</span> {stat.desc}
                 </p>
               </div>
-              <div className="p-4 bg-red-50 dark:bg-red-500/10 rounded-full text-red-500">
+              <div className="p-4 bg-indigo-50 dark:bg-indigo-500/10 rounded-full text-indigo-500">
                 <stat.icon size={24} />
               </div>
             </div>

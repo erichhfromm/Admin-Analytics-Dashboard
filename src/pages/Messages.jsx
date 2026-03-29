@@ -17,7 +17,7 @@ const Messages = () => {
       try {
         const res = await getUsers('', 'All', 'createdAt', 'desc', 1, 100);
         const users = res.users || [];
-        const colors = ['bg-red-500', 'bg-blue-500', 'bg-emerald-500', 'bg-rose-500', 'bg-amber-500', 'bg-indigo-500'];
+        const colors = ['bg-indigo-500', 'bg-slate-500', 'bg-emerald-500', 'bg-violet-500', 'bg-amber-500', 'bg-sky-500'];
         const mapped = users.map((u, i) => ({
           id: u.id,
           name: u.name,
@@ -158,11 +158,11 @@ const Messages = () => {
               <div key={msg.id} className={`flex ${msg.sender === 'me' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[70%] rounded-2xl p-3 ${
                   msg.sender === 'me' 
-                    ? 'bg-[var(--primary)] text-white rounded-tr-none' 
+                    ? 'bg-indigo-600 text-white rounded-tr-none' 
                     : 'bg-[var(--surface-color)] border border-[var(--border-color)] text-[var(--text-main)] rounded-tl-none'
                 }`}>
                   <p className="text-sm">{msg.text}</p>
-                  <div className={`flex items-center gap-1 mt-1 text-[10px] ${msg.sender === 'me' ? 'text-red-200 justify-end' : 'text-[var(--text-muted)]'}`}>
+                  <div className={`flex items-center gap-1 mt-1 text-[10px] ${msg.sender === 'me' ? 'text-indigo-100 justify-end' : 'text-[var(--text-muted)]'}`}>
                     {msg.time}
                     {msg.sender === 'me' && <CheckCheck size={12} />}
                   </div>
@@ -190,7 +190,7 @@ const Messages = () => {
             <button 
               type="submit"
               disabled={!msgInput.trim()}
-              className="w-10 h-10 rounded-full bg-[var(--primary)] text-white flex items-center justify-center hover:bg-[var(--primary-hover)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send size={18} className="translate-x-[-1px] translate-y-[1px]" />
             </button>

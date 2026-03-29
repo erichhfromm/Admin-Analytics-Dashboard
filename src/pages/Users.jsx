@@ -123,7 +123,7 @@ const Users = () => {
         </div>
         <button 
           onClick={() => openModal()}
-          className="flex items-center gap-2 px-4 py-2 bg-[var(--primary)] text-white text-sm font-medium rounded-lg hover:bg-[var(--primary-hover)] transition-all hover:scale-105 active:scale-95 shadow-sm shadow-red-500/30"
+          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 dark:bg-indigo-500 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-indigo-500/20"
         >
           <Plus size={18} />
           Add New User
@@ -139,7 +139,7 @@ const Users = () => {
               placeholder="Search users..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-[var(--bg-color)] border border-[var(--border-color)] text-[var(--text-main)] px-10 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/50 transition-all placeholder:text-[var(--text-muted)]"
+              className="w-full bg-[var(--bg-color)] border border-[var(--border-color)] text-[var(--text-main)] px-10 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all placeholder:text-[var(--text-muted)]"
             />
           </div>
 
@@ -149,7 +149,7 @@ const Users = () => {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full sm:w-auto appearance-none bg-[var(--bg-color)] border border-[var(--border-color)] text-[var(--text-main)] pl-10 pr-8 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/50 cursor-pointer transition-all"
+                className="w-full sm:w-auto appearance-none bg-[var(--bg-color)] border border-[var(--border-color)] text-[var(--text-main)] pl-10 pr-8 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 cursor-pointer transition-all"
               >
                 <option value="All">All Status</option>
                 <option value="Active">Active</option>
@@ -189,7 +189,7 @@ const Users = () => {
                     <tr key={user.id} className={`hover:bg-[var(--bg-color)]/50 transition-colors group ${isDeletingId === user.id ? 'opacity-50' : ''}`}>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-red-500 to-black text-white flex items-center justify-center font-bold text-sm shadow-sm">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-500 to-indigo-800 text-white flex items-center justify-center font-bold text-sm shadow-sm">
                             {user.name.charAt(0)}
                           </div>
                           <div>
@@ -358,7 +358,7 @@ const Users = () => {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="flex items-center gap-2 px-6 py-2 bg-[var(--primary)] text-white text-sm font-semibold rounded-lg hover:bg-[var(--primary-hover)] transition-all shadow-sm shadow-red-500/30 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="flex items-center gap-2 px-6 py-2 bg-indigo-600 dark:bg-indigo-500 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all shadow-lg shadow-indigo-500/20 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {submitting && <Loader2 size={16} className="animate-spin" />}
                     {formData.id ? 'Save Changes' : 'Create User'}

@@ -134,7 +134,7 @@ const Settings = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                 activeTab === tab.id 
-                  ? 'bg-[var(--primary)] text-white shadow-md shadow-red-500/20' 
+                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20' 
                   : 'text-[var(--text-muted)] hover:bg-[var(--surface-color)] hover:text-[var(--text-main)] border border-transparent'
               }`}
             >
@@ -150,7 +150,7 @@ const Settings = () => {
               <div className="space-y-6 animate-in fade-in">
                 <div className="flex items-center gap-6 pb-6 border-b border-[var(--border-color)]">
                   <div className="relative group">
-                    <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-tr from-red-600 to-black text-white flex items-center justify-center font-bold text-3xl shadow-xl shadow-red-500/20 transition-transform group-hover:scale-105 border-4 border-white dark:border-gray-800">
+                    <div className="w-24 h-24 rounded-full overflow-hidden bg-gradient-to-tr from-indigo-600 to-indigo-900 text-white flex items-center justify-center font-bold text-3xl shadow-xl shadow-indigo-500/20 transition-transform group-hover:scale-105 border-4 border-white dark:border-gray-800">
                       {avatarPreview ? (
                         <img src={avatarPreview} alt="Avatar" className="w-full h-full object-cover" />
                       ) : (
@@ -179,7 +179,7 @@ const Settings = () => {
                       <button 
                         type="button" 
                         onClick={() => fileInputRef.current.click()}
-                        className="px-4 py-1.5 bg-[var(--primary)] text-white text-sm font-medium rounded-lg hover:bg-[var(--primary-hover)] transition-all"
+                        className="px-4 py-1.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-all"
                       >
                         Upload Photo
                       </button>
@@ -317,7 +317,7 @@ const Settings = () => {
               <button
                 type="submit"
                 disabled={saving}
-                className="flex items-center gap-2 px-6 py-2.5 bg-[var(--primary)] text-white text-sm font-semibold rounded-lg hover:bg-[var(--primary-hover)] transition-all shadow-sm shadow-red-500/30 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 dark:bg-indigo-500 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all shadow-lg shadow-indigo-500/20 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {saving && <Loader2 size={16} className="animate-spin" />}
                 Save Changes

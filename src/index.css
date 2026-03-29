@@ -1,29 +1,35 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #DC2626; /* Red 600 */
-  --primary-hover: #991B1B; /* Red 800 */
-  --bg-color: #FFFFFF; /* Latar belakang tetap putih */
-  --surface-color: #FAFAFA; /* Slightly off-white for cards to pop against white bg */
-  --text-main: #000000; /* Hitam pekat */
-  --text-muted: #4B5563; /* Gray 600 for readability */
-  --border-color: #E5E7EB;
+  --primary: #6366f1; /* Indigo 500 */
+  --primary-hover: #4f46e5; /* Indigo 600 */
+  --bg-color: #f8fafc; /* Slate 50 */
+  --surface-color: #ffffff;
+  --text-main: #0f172a; /* Slate 900 */
+  --text-muted: #64748b; /* Slate 500 */
+  --border-color: #e2e8f0; /* Slate 200 */
   --sidebar-w: 260px;
+  --accent: #f59e0b; /* Amber 500 */
+  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 .dark {
-  --bg-color: #000000; /* Kombinasi hitam untuk dark mode */
-  --surface-color: #111111;
-  --text-main: #FFFFFF;
-  --text-muted: #9CA3AF;
-  --border-color: #333333;
-  --primary: #EF4444; /* Red 500 for better visibility in dark mode */
-  --primary-hover: #DC2626;
+  --bg-color: #020617; /* Slate 950 */
+  --surface-color: #0f172a; /* Slate 900 */
+  --text-main: #f8fafc; /* Slate 50 */
+  --text-muted: #94a3b8; /* Slate 400 */
+  --border-color: #1e293b; /* Slate 800 */
+  --primary: #818cf8; /* Indigo 400 */
+  --primary-hover: #6366f1;
+  --card-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
 }
 
 body {
   background-color: var(--bg-color);
+  background-image: radial-gradient(at 0% 0%, hsla(225, 39%, 30%, 0.05) 0, transparent 50%), 
+                    radial-gradient(at 50% 0%, hsla(225, 39%, 20%, 0.02) 0, transparent 50%);
   color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 

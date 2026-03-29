@@ -55,7 +55,7 @@ const Sidebar = ({ isMobileOpen, onClose }) => {
       {/* Brand */}
       <div className="flex items-center justify-between p-6 pb-2">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[var(--primary)] flex items-center justify-center text-white font-bold text-lg shadow-sm shadow-red-500/50 overflow-hidden">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-indigo-500/30 overflow-hidden">
             {brandData.url ? (
               <img src={brandData.url} alt="Logo" className="w-full h-full object-cover" />
             ) : (
@@ -89,8 +89,8 @@ const Sidebar = ({ isMobileOpen, onClose }) => {
               clsx(
                 "group flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
                 isActive
-                  ? "bg-[var(--primary)] text-white shadow-md shadow-red-500/20 scale-105 origin-left"
-                  : "text-[var(--text-muted)] hover:bg-[var(--surface-color)] hover:text-[var(--primary)] hover:translate-x-1"
+                  ? "bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-r-4 border-indigo-600 dark:border-indigo-400"
+                  : "text-[var(--text-muted)] hover:bg-[var(--bg-color)] hover:text-indigo-600 hover:translate-x-1"
               )
             }
           >
@@ -103,9 +103,9 @@ const Sidebar = ({ isMobileOpen, onClose }) => {
       <div className="p-4 border-t border-[var(--border-color)]">
         <button
           onClick={handleLogout}
-          className="group flex w-full items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-[var(--text-muted)] hover:bg-[#FEF2F2] hover:text-[#EF4444] dark:hover:bg-red-950/30 transition-all duration-200"
+          className="group flex w-full items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-[var(--text-muted)] hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200"
         >
-          <LogOut size={20} className="group-hover:stroke-current" />
+          <LogOut size={20} className="group-hover:stroke-indigo-500" />
           Logout
         </button>
       </div>

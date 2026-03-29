@@ -84,10 +84,10 @@ const Dashboard = () => {
   }
 
   const statCards = [
-    { title: 'Total Revenue', value: stats?.revenue || "$0", trend: stats?.revenueGrowth || "+0%", icon: DollarSign, color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-500/10' },
-    { title: 'Total Users', value: (stats?.totalUsers || 0).toLocaleString(), trend: '+0%', icon: Users, color: 'text-red-500', bg: 'bg-red-50 dark:bg-red-500/10' },
-    { title: 'Active Users', value: stats?.activeUsers || 0, trend: '+0%', icon: TrendingUp, color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-500/10' },
-    { title: 'Pending Users', value: stats?.pendingUsers || 0, trend: '-0%', trendDown: true, icon: Activity, color: 'text-rose-500', bg: 'bg-rose-50 dark:bg-rose-500/10' },
+    { title: 'Total Revenue', value: stats?.revenue || "$0", trend: stats?.revenueGrowth || "+0%", icon: DollarSign, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+    { title: 'Total Users', value: (stats?.totalUsers || 0).toLocaleString(), trend: '+0%', icon: Users, color: 'text-indigo-500', bg: 'bg-indigo-500/10' },
+    { title: 'Active Users', value: stats?.activeUsers || 0, trend: '+0%', icon: TrendingUp, color: 'text-amber-500', bg: 'bg-amber-500/10' },
+    { title: 'Pending Users', value: stats?.pendingUsers || 0, trend: '-0%', trendDown: true, icon: Activity, color: 'text-rose-500', bg: 'bg-rose-500/10' },
   ];
 
   return (
@@ -97,7 +97,7 @@ const Dashboard = () => {
         <button 
           onClick={handleDownloadReport}
           disabled={downloading}
-          className="flex items-center gap-2 px-4 py-2 bg-[var(--primary)] text-white text-sm font-medium rounded-lg hover:bg-[var(--primary-hover)] transition-all hover:scale-105 active:scale-95 shadow-sm shadow-red-500/30 disabled:opacity-70 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 dark:bg-indigo-500 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-indigo-500/20 disabled:opacity-70 disabled:cursor-not-allowed"
         >
           {downloading ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
           {downloading ? "Formatting..." : "Download Report"}
@@ -133,8 +133,8 @@ const Dashboard = () => {
               <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#dc2626" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#dc2626" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-color)" />
@@ -157,7 +157,7 @@ const Dashboard = () => {
                 <Area 
                   type="monotone" 
                   dataKey="revenue" 
-                  stroke="#dc2626" 
+                  stroke="#6366f1" 
                   strokeWidth={3}
                   fillOpacity={1} 
                   fill="url(#colorRev)" 
@@ -189,7 +189,7 @@ const Dashboard = () => {
                   cursor={{ fill: 'var(--bg-color)' }}
                   contentStyle={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--border-color)', borderRadius: '8px' }}
                 />
-                <Bar dataKey="revenue" fill="#002980ff" radius={[4, 4, 0, 0]} barSize={24} />
+                <Bar dataKey="revenue" fill="#6366f1" radius={[4, 4, 0, 0]} barSize={24} />
               </BarChart>
             </ResponsiveContainer>
           </div>

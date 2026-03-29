@@ -30,7 +30,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-[var(--bg-color)] flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-500/10 dark:bg-red-500/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/10 dark:bg-indigo-500/5 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-neutral-500/10 dark:bg-neutral-500/5 blur-[100px] rounded-full pointer-events-none" />
       
       <motion.div 
@@ -41,7 +41,7 @@ const Login = () => {
       >
         <div className="p-8 sm:p-10">
           <div className="mb-8 text-center">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-black flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 shadow-lg shadow-red-500/30">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-900 flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 shadow-lg shadow-indigo-500/30">
               A
             </div>
             <h1 className="text-2xl font-bold text-[var(--text-main)] tracking-tight">Welcome back</h1>
@@ -64,7 +64,7 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full bg-[var(--bg-color)] border border-[var(--border-color)] text-[var(--text-main)] pl-10 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/50 focus:border-[var(--primary)] transition-all"
+                  className="w-full bg-[var(--bg-color)] border border-[var(--border-color)] text-[var(--text-main)] pl-10 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
                   placeholder="Enter your email"
                 />
               </div>
@@ -76,7 +76,7 @@ const Login = () => {
                 <button 
                   type="button" 
                   onClick={() => navigate('/forgot-password')} 
-                  className="text-xs font-semibold text-[var(--primary)] hover:underline shadow-none bg-transparent p-0 border-none outline-none"
+                  className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline shadow-none bg-transparent p-0 border-none outline-none"
                 >
                   Forgot password?
                 </button>
@@ -88,7 +88,7 @@ const Login = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full bg-[var(--bg-color)] border border-[var(--border-color)] text-[var(--text-main)] pl-10 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/50 focus:border-[var(--primary)] transition-all"
+                  className="w-full bg-[var(--bg-color)] border border-[var(--border-color)] text-[var(--text-main)] pl-10 pr-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
                   placeholder="••••••••"
                 />
               </div>
@@ -97,7 +97,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="group w-full relative flex justify-center items-center py-2.5 px-4 border border-transparent text-sm font-semibold rounded-xl text-white bg-[var(--primary)] hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary)] disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-md shadow-red-500/30 overflow-hidden"
+              className="group w-full relative flex justify-center items-center py-2.5 px-4 border border-transparent text-sm font-semibold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-70 disabled:cursor-not-allowed transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-indigo-500/30 overflow-hidden"
             >
               <span className="absolute inset-0 w-full h-full bg-gradient-to-tr from-white/10 to-transparent pointer-events-none" />
               {loading ? (
