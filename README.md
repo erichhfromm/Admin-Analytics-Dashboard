@@ -1,81 +1,83 @@
-# Admin Analytics Dashboard 🚀
+# 🚀 Apex Analytics - Premium Administrative Dashboard
 
-A modern, responsive, and beautifully designed admin dashboard built with React, Vite, and Tailwind CSS. This project serves as a comprehensive template for startup dashboards and application admin panels.
+![Apex Analytics Preview](./dashboard_preview.png)
 
-![Dashboard Preview](https://via.placeholder.com/1200x800?text=Dashboard+Preview)
+## ✨ Overview
+**Apex Analytics** is a high-performance, production-ready administrative dashboard designed for modern SaaS and business intelligence applications. Built with a focus on **security, elegance, and extreme performance**, it transforms raw data into a sophisticated, interactive experience.
 
-## ✨ Features
+Unlike generic templates, this dashboard features a custom-built **Slate & Indigo** design system with glassmorphism touches and optimized data-fetching architectures. It provides a robust foundation for businesses needing real-time user management, secure internal messaging, and deep-dive financial analytics.
 
-- **Modern UI/UX**: Clean aesthetic with ample whitespace, using best practices in data visualization.
-- **Dark Mode Support**: Seamless toggle between light and dark modes with a smooth transition.
-- **Responsive Layout**: Fully functional and aesthetically pleasing on both desktop and mobile devices.
-- **Simulated Authentication**: A sleek login flow with error handling and protected routes.
-- **Interactive Charts**: Revenue and user acquisition data visualized using `recharts`.
-- **Dynamic Data Table**: User management table with real-time search and status filtering.
-- **Mock API Service**: Simulated backend using promises with artificial delays to mimic real network requests.
+---
 
-## 🛠️ Tech Stack
+## 🛠️ Main Features
+- 🛡️ **Enterprise-Grade Security**: JWT authentication with Role-Based Access Control (RBAC), multi-layered request validation, and secure password hashing via Bcrypt.
+- 📉 **Dynamic Financial Analytics**: Real-time revenue tracking and user acquisition metrics powered by server-side aggregations.
+- 💬 **Private Internal Messenger**: Integrated messaging system between Admins and Users with a sleek, conversational UI and auto-syncing history.
+- ⚡ **Optimized Pagination**: Server-side pagination capable of handling 10,000+ records without performance degradation.
+- 🌓 **Adaptive Theming**: Fully responsive Dark/Light mode with auto-system detection and persistent preference storage.
+- ⚙️ **Advanced Profile Management**: Secure profile updates, avatar uploads with resizing, and real-time settings synchronization.
+- 📧 **Security Recovery**: Built-in Forgot/Reset password flow with SMTP email simulation.
 
-- **Framework**: React 18, Vite
-- **Styling**: Tailwind CSS v4, Contextual Dark Mode
-- **Icons**: Lucide React
-- **Charts**: Recharts
-- **Animations**: Framer Motion
-- **Routing**: React Router DOM
-- **Utility**: clsx, tailwind-merge
+---
 
-## 📂 Project Structure
+## 💻 Tech Stack
+| Tier | Technology |
+| :--- | :--- |
+| **Frontend** | React 18, Vite, TailwindCSS, Framer Motion, Lucide Icons, Recharts |
+| **Backend** | Node.js, Express.js, JWT, BcryptJS, Multer |
+| **Database** | MongoDB (Mongoose ODM) |
+| **Tools** | Git, Postman, Nodemailer |
 
-```
-src/
- ├── components/       # Reusable UI components (Sidebar, Navbar, Card, Layout)
- ├── pages/            # Application routes (Dashboard, Users, Login)
- ├── services/         # Simulated API service (api.js)
- ├── index.css         # Global styles and Tailwind imports
- ├── App.jsx           # Main application routing
- └── main.jsx          # React entry point
-```
+---
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### 1. Requirements
+- Node.js (v18+)
+- MongoDB (Local or Atlas)
 
-- Node.js (v16.0 or higher recommended)
-- npm or yarn
+### 2. Installation
+Clone the repository and install dependencies:
+```bash
+# Frontend
+npm install
 
-### Installation
+# Backend
+cd backend
+npm install
+```
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/admin-analytics-dashboard.git
-   ```
+### 3. Setup Environment Variables
+Create a `.env` file in the `/backend` directory:
+```env
+PORT=5000
+MONGO_URI=your_mongodb_uri
+JWT_SECRET=your_secret_key
+```
 
-2. Navigate to the project directory:
-   ```bash
-   cd "Admin Analytics Dashboard"
-   ```
+### 4. Database Seeding (Crucial)
+Initialize the Super Admin account (required for first login):
+```bash
+cd backend
+npm run seed:admin
+```
+**Default Credentials:**
+- **Email:** `admin@example.com`
+- **Password:** `password123`
 
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
+### 5. Running the Application
+```bash
+# Start Backend
+cd backend
+npm run dev
 
-4. Start the development server:
-   ```bash
-   npm run dev
-   ```
+# Start Frontend (Root)
+npm run dev
+```
 
-## 🔐 Demo Credentials
+---
 
-To access the dashboard, use the following simulated credentials on the login screen:
-- **Email**: `admin@demo.com`
-- **Password**: `admin`
+## 📜 License
+Independent Developer Project. Distributed under the **MIT License**.
 
-## 💡 Customization
-
-- **Colors**: Application branding colors can be easily modified in `src/index.css` under the `:root` and `.dark` variables.
-- **Sidebar Options**: Modify `navItems` within `src/components/Sidebar.jsx` to add or remove pages.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+Built with ❤️ by [Your Name/GitHub Username]
