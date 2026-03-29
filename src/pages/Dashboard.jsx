@@ -189,7 +189,7 @@ const Dashboard = () => {
                   cursor={{ fill: 'var(--bg-color)' }}
                   contentStyle={{ backgroundColor: 'var(--surface-color)', borderColor: 'var(--border-color)', borderRadius: '8px' }}
                 />
-                <Bar dataKey="revenue" fill="#6366f1" radius={[4, 4, 0, 0]} barSize={24} />
+                <Bar dataKey="total" fill="#6366f1" radius={[4, 4, 0, 0]} barSize={24} />
               </BarChart>
             </ResponsiveContainer>
           </div>

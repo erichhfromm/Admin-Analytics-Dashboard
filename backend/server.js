@@ -102,7 +102,7 @@ app.get('/api/analytics', auth, async (req, res) => {
 // Upload Route
 app.post('/api/upload', auth, upload.single('avatar'), (req, res) => {
     if (!req.file) return res.status(400).json({ msg: 'No file uploaded' });
-    const fileUrl = `http://127.0.0.1:${PORT}/uploads/${req.file.filename}`;
+    const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
     res.json({ url: fileUrl });
 });
 
