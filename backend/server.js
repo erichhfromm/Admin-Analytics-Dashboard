@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('cloudinary').v2;
 const nodemailer = require('nodemailer');
 const connectDB = require('./config/db');
 const User = require('./models/User');
@@ -61,15 +63,20 @@ app.get('/api/activities', auth, async (req, res) => {
     }
 });
 
-// Multer Storage Configuration
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + path.extname(file.originalname));
-    }
+// Cloudinary Configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+// Multer Storage Configuration (Cloudinary)
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'admin_dashboard_avatars',
+    allowed_formats: ['jpg', 'png', 'jpeg', 'webp']
+  }
 });
 const upload = multer({ storage: storage });
 
@@ -107,7 +114,7 @@ app.get('/api/analytics', auth, async (req, res) => {
 // Upload Route
 app.post('/api/upload', auth, upload.single('avatar'), (req, res) => {
     if (!req.file) return res.status(400).json({ msg: 'No file uploaded' });
-    const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    const fileUrl = req.file.path; // Cloudinary returns the URL in req.file.path
     res.json({ url: fileUrl });
 });
 
