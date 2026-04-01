@@ -51,11 +51,11 @@ const Sidebar = ({ isMobileOpen, onClose }) => {
   ];
 
   const sidebarContent = (
-    <div className="h-full flex flex-col bg-[var(--surface-color)] border-r border-[var(--border-color)] overflow-y-auto">
+    <div className="h-full flex flex-col bg-[var(--surface-color)] backdrop-blur-[var(--glass-blur)] border-r border-[var(--border-color)] overflow-y-auto shadow-2xl shadow-indigo-500/5">
       {/* Brand */}
       <div className="flex items-center justify-between p-6 pb-2">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-indigo-500/30 overflow-hidden">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-900 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-indigo-500/30 border border-white/10 overflow-hidden">
             {brandData.url ? (
               <img src={brandData.url} alt="Logo" className="w-full h-full object-cover" />
             ) : (

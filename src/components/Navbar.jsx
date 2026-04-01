@@ -79,7 +79,7 @@ const Navbar = ({ onMobileMenuToggle }) => {
   ];
 
   return (
-    <header className="sticky top-0 z-20 w-full bg-[var(--surface-color)] border-b border-[var(--border-color)] px-4 py-3 flex items-center justify-between shadow-sm">
+    <header className="sticky top-0 z-20 w-full bg-[var(--surface-color)] backdrop-blur-[var(--glass-blur)] border-b border-[var(--border-color)] px-4 py-3 flex items-center justify-between shadow-sm">
       <div className="flex items-center gap-4">
         <button
           onClick={onMobileMenuToggle}
