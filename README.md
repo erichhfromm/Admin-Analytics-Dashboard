@@ -6,7 +6,7 @@
 
 A modern admin dashboard for visualizing business data, managing users, and exploring analytics through a clean and interactive interface.
 
-🔗 Live Demo: https://your-link.vercel.app  
+🔗 Live Demo: (https://admin-analyticsdashboard.netlify.app/)
 📂 GitHub: https://github.com/erichhfromm/Admin-Analytics-Dashboard
 
 ---
