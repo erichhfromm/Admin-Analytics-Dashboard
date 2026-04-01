@@ -213,7 +213,7 @@ app.post('/api/auth/reset-password/:id/:token', async (req, res) => {
         const admin = await Admin.findById(id);
         if (!admin) return res.status(404).json({ msg: 'Invalid reset link' });
 
-        const secret = (process.env.JWT_SECRET || 'your_super_secret_key_123') + admin.password;
+        const secret = (process.env.JWT_SECRET || 'admin123') + admin.password;
         try {
             jwt.verify(token, secret);
         } catch (error) {
