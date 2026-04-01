@@ -171,7 +171,7 @@ const Dashboard = () => {
           <h3 className="text-lg font-semibold text-[var(--text-main)] mb-6">User Acquisition</h3>
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={chartData.slice(6)} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <BarChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-color)" />
                 <XAxis 
                   dataKey="name" 
