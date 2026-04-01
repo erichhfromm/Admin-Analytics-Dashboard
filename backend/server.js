@@ -172,7 +172,8 @@ app.post('/api/auth/forgot-password', async (req, res) => {
         const payload = { email: admin.email, id: admin.id };
         const token = jwt.sign(payload, secret, { expiresIn: '15m' });
 
-        const resetUrl = `http://localhost:5173/reset-password/${admin.id}/${token}`;
+        const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+        const resetUrl = `${clientUrl}/reset-password/${admin.id}/${token}`;
 
         // Create test ethereal account via nodemailer for dev
         let testAccount = await nodemailer.createTestAccount();
