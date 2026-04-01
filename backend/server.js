@@ -21,7 +21,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Global Middleware
-app.use(cors());
+app.use(cors({
+    origin: process.env.CLIENT_URL || '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'x-auth-token', 'Authorization'],
+    credentials: true,
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use('/uploads', express.static('uploads'));
@@ -58,13 +63,13 @@ app.get('/api/activities', auth, async (req, res) => {
 
 // Multer Storage Configuration
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  }
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/');
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname));
+    }
 });
 const upload = multer({ storage: storage });
 
@@ -85,7 +90,7 @@ app.get('/api/analytics', auth, async (req, res) => {
         const data = months.map((month, index) => {
             const tTotal = users.filter(u => new Date(u.createdAt).getMonth() === index).length;
             const tRevenue = txs.filter(t => new Date(t.createdAt).getMonth() === index)
-                                 .reduce((acc, curr) => acc + (curr.amount || 0), 0);
+                .reduce((acc, curr) => acc + (curr.amount || 0), 0);
             return {
                 name: month,
                 total: tTotal,
@@ -140,13 +145,13 @@ app.post('/api/auth/login', async (req, res) => {
         const isMatch = await bcrypt.compare(password, admin.password);
         if (!isMatch) return res.status(400).json({ msg: 'Invalid Credentials' });
 
-        const payload = { 
-            user: { 
+        const payload = {
+            user: {
                 id: admin.id,
                 role: admin.role
-            } 
+            }
         };
-        jwt.sign(payload, process.env.JWT_SECRET || 'your_super_secret_key_123', { expiresIn: 360000 }, (err, token) => {
+        jwt.sign(payload, process.env.JWT_SECRET || 'admin123', { expiresIn: 360000 }, (err, token) => {
             if (err) throw err;
             res.json({ token, user: { name: admin.name, email: admin.email, role: admin.role } });
         });
@@ -163,7 +168,7 @@ app.post('/api/auth/forgot-password', async (req, res) => {
         if (!admin) return res.status(404).json({ msg: 'Admin with this email not found' });
 
         // Create one-time token based on current password
-        const secret = (process.env.JWT_SECRET || 'your_super_secret_key_123') + admin.password;
+        const secret = (process.env.JWT_SECRET || 'admin123') + admin.password;
         const payload = { email: admin.email, id: admin.id };
         const token = jwt.sign(payload, secret, { expiresIn: '15m' });
 
@@ -174,7 +179,7 @@ app.post('/api/auth/forgot-password', async (req, res) => {
         let transporter = nodemailer.createTransport({
             host: "smtp.ethereal.email",
             port: 587,
-            secure: false, 
+            secure: false,
             auth: {
                 user: testAccount.user,
                 pass: testAccount.pass,
@@ -190,7 +195,7 @@ app.post('/api/auth/forgot-password', async (req, res) => {
         });
 
         console.log("Mail sent! Ethereal Preview URL: %s", nodemailer.getTestMessageUrl(info));
-        
+
         await logActivity(admin.id, 'Requested password reset');
 
         res.json({ msg: 'Password reset link sent to email! (Check backend console for Dev Preview)', previewUrl: nodemailer.getTestMessageUrl(info) });
@@ -244,10 +249,10 @@ app.get('/api/stats', auth, async (req, res) => {
         const totalUsers = await User.countDocuments();
         const activeUsers = await User.countDocuments({ status: 'Active' });
         const pendingUsers = await User.countDocuments({ status: 'Pending' });
-        
+
         const txs = await Transaction.find({ status: 'Completed' });
         const revenueValue = txs.reduce((sum, t) => sum + (t.amount || 0), 0);
-        
+
         const formattedRevenue = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
@@ -306,7 +311,7 @@ app.post('/api/messages', auth, async (req, res) => {
     try {
         const { receiverId, content } = req.body;
         const senderId = req.user.id;
-        
+
         if (!receiverId) {
             return res.status(400).json({ error: 'receiverId is required' });
         }
@@ -316,11 +321,11 @@ app.post('/api/messages', auth, async (req, res) => {
 
         const newMessage = new Message({ senderId, receiverId, content });
         const savedMessage = await newMessage.save();
-        
+
         let receiverName = receiverId;
         const tUser = await User.findById(receiverId);
         if (tUser) receiverName = tUser.name;
-        
+
         await logActivity(req.user.id, 'Sent a new message', `To: ${receiverName}`);
         res.status(201).json(savedMessage);
     } catch (err) {
@@ -334,7 +339,7 @@ app.get('/api/settings', auth, async (req, res) => {
         if (!admin) return res.status(404).json({ error: 'Admin record not found' });
 
         let setting = await Setting.findOne({ userId: req.user.id });
-        
+
         if (!setting) {
             setting = new Setting({ userId: req.user.id });
             await setting.save();
@@ -356,13 +361,13 @@ app.get('/api/settings', auth, async (req, res) => {
 app.put('/api/settings', auth, async (req, res) => {
     try {
         const { name, email, avatarUrl, notifications, theme } = req.body;
-        
+
         // 1. Update Admin Account
         const adminUpdate = {};
         if (name) adminUpdate.name = name;
         if (email) adminUpdate.email = email;
         if (avatarUrl) adminUpdate.avatarUrl = avatarUrl;
-        
+
         if (Object.keys(adminUpdate).length > 0) {
             await Admin.findByIdAndUpdate(req.user.id, adminUpdate);
         }
@@ -384,7 +389,7 @@ app.put('/api/settings', auth, async (req, res) => {
 app.put('/api/settings/password', auth, async (req, res) => {
     try {
         const { currentPassword, newPassword } = req.body;
-        
+
         if (!currentPassword || !newPassword) {
             return res.status(400).json({ msg: 'Please provide both current and new passwords' });
         }
@@ -400,7 +405,7 @@ app.put('/api/settings/password', auth, async (req, res) => {
         await admin.save();
 
         await logActivity(req.user.id, 'Changed password');
-        
+
         res.json({ msg: 'Password updated successfully' });
     } catch (err) {
         console.error('Password update error:', err.message);
@@ -412,14 +417,14 @@ app.get('/api/users', auth, async (req, res) => {
     try {
         const { search, status, sortBy, order } = req.query;
         let query = {};
-        
+
         if (search) {
             query.$or = [
                 { name: { $regex: search, $options: 'i' } },
                 { email: { $regex: search, $options: 'i' } }
             ];
         }
-        
+
         if (status && status !== 'All') {
             query.status = status;
         }
@@ -453,10 +458,10 @@ app.get('/api/users', auth, async (req, res) => {
 app.post('/api/users', auth, checkRole(['Super Admin', 'Admin']), async (req, res) => {
     try {
         const { name, email, role, status } = req.body;
-        
+
         if (!name || typeof name !== 'string' || name.trim() === '') return res.status(400).json({ error: 'Valid name is required' });
         if (!email || !/^\S+@\S+\.\S+$/.test(email)) return res.status(400).json({ error: 'Valid email is required' });
-        
+
         if (role && !['Admin', 'Editor', 'User'].includes(role)) return res.status(400).json({ error: 'Invalid role provided' });
         if (status && !['Active', 'Inactive', 'Pending'].includes(status)) return res.status(400).json({ error: 'Invalid status provided' });
 
@@ -473,27 +478,27 @@ app.put('/api/users/:id', auth, checkRole(['Super Admin', 'Admin']), async (req,
     try {
         const { name, email, role, status } = req.body;
         const updates = {};
-        
+
         if (name !== undefined) {
-             if (typeof name !== 'string' || name.trim() === '') return res.status(400).json({ error: 'Valid name is required' });
-             updates.name = name;
+            if (typeof name !== 'string' || name.trim() === '') return res.status(400).json({ error: 'Valid name is required' });
+            updates.name = name;
         }
         if (email !== undefined) {
-             if (!/^\S+@\S+\.\S+$/.test(email)) return res.status(400).json({ error: 'Valid email is required' });
-             updates.email = email;
+            if (!/^\S+@\S+\.\S+$/.test(email)) return res.status(400).json({ error: 'Valid email is required' });
+            updates.email = email;
         }
         if (role !== undefined) {
-             if (!['Admin', 'Editor', 'User'].includes(role)) return res.status(400).json({ error: 'Invalid role provided' });
-             updates.role = role;
+            if (!['Admin', 'Editor', 'User'].includes(role)) return res.status(400).json({ error: 'Invalid role provided' });
+            updates.role = role;
         }
         if (status !== undefined) {
-             if (!['Active', 'Inactive', 'Pending'].includes(status)) return res.status(400).json({ error: 'Invalid status provided' });
-             updates.status = status;
+            if (!['Active', 'Inactive', 'Pending'].includes(status)) return res.status(400).json({ error: 'Invalid status provided' });
+            updates.status = status;
         }
 
         const updatedUser = await User.findByIdAndUpdate(req.params.id, updates, { new: true });
-        if(!updatedUser) return res.status(404).json({ error: 'User not found' });
-        
+        if (!updatedUser) return res.status(404).json({ error: 'User not found' });
+
         await logActivity(req.user.id, 'Updated user', updatedUser.name);
         res.json(updatedUser);
     } catch (err) {
